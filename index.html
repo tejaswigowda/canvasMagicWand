@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas Editor</title>
+    <link rel="stylesheet/less" type="text/css" href="libs/custom/custom.less" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.1/less.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+    <div id="content">
+                            <div id='toolbar' class="toolbar">
+                            </div>
+                            <div id='header' class="toolbar">
+                              <button onclick='header.close()'> <i class="fa fa-times" aria-hidden="true"></i> </button><span class='title' id='headerTitle'> </span>
+                            </div>
+                            <div class="image-container">
+                              <canvas id='theCanvas'> </canvas>
+                            </div>
+        </div>
+
+        <div id='inspectorWrapper' class='inspectorWrapper'>
+
+        </div>
+
+        <script src="./libs/fabric/fabric.js"></script>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <script src="./libs/custom/init.js"></script>
+        <script src="./libs/custom/basics.js"></script>
+        <script src="./libs/custom/doc.js"></script>
+        <script src="./libs/custom/freeHand.js"></script>
+        <script src="./libs/custom/acript.js"></script>
+
+
+        <script>
+          var origImageData = null;
+          var maskImageData = null;
+            function convertImgToDataURLviaCanvas(url, callback) {
+                var img = new Image();
+                img.crossOrigin = 'Anonymous';
+                img.onload = function() {
+                    var canvas = document.createElement('CANVAS');
+                    var ctx = canvas.getContext('2d');
+                    canvas.height = this.height;
+                    canvas.width = this.width;
+                    var compositeOperation = ctx.globalCompositeOperation;
+                    ctx.globalCompositeOperation = "destination-over";
+                    ctx.fillStyle = "rgba(0,0,0,0)";
+                    ctx.drawImage(this, 0, 0);
+                    var dataURL = canvas.toDataURL("png");
+                    callback(dataURL);
+                    origImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    canvas = null;
+                };
+                img.src = url;
+            }
+
+            function getResultImage()
+            {
+              theCanvas.deactivateAll().renderAll();
+              var context = theCanvas.getContext('2d');
+              maskImageData = context.getImageData(0, 0, theCanvas.width, theCanvas.height);
+                    var canvas = document.createElement('CANVAS');
+                    var ctx = canvas.getContext('2d');
+                    canvas.height = theCanvas.height;
+                    canvas.width = theCanvas.width;
+//                    var compositeOperation = ctx.globalCompositeOperation;
+//                    ctx.globalCompositeOperation = "destination-over";
+
+                      var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                    
+                    for(var i = 0; i < origImageData.data.length; i++){
+                      if(maskImageData.data[i] == origImageData.data[i]){
+                        imageData.data[i] = origImageData.data[i];
+                      }
+                      else{
+                        imageData.data[i] = 0;
+                      }
+                    }
+                    ctx.putImageData(imageData,0,0);
+                    var dataURL = canvas.toDataURL("png");
+                    window.open(dataURL);
+                    console.log(dataURL);
+
+            }
+
+            var theCanvas = new fabric.Canvas('theCanvas');
+
+            setTimeout("start()", 300);
+            
+            function start()
+            {
+             convertImgToDataURLviaCanvas(window.location.hash.replace("#",""), function(dataUrl) {
+              fabric.Image.fromURL(dataUrl, function(img) {
+                console.log(img);
+                   theCanvas.add(img);
+                   theCanvas.setWidth(img.width);
+                   theCanvas.setHeight(img.height);
+                   theCanvas.forEachObject(function(o) {
+                    o.selectable = false;
+                  });
+              });
+             });
+
+            }
+
+            
+            /*
+            theCanvas.on('object:selected', function() {
+              inspectorDisp.showActive();
+            });
+            theCanvas.on('selection:cleared', function() {
+              if(CURRTOOL == null){
+                inspectorDisp.show();
+              }
+            });
+            */
+
+            
+        </script>
+
+</body>
+
+</html>

@@ -1,0 +1,380 @@
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background:rgb(200,200,200);
+  color: #555;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#theCanvas{
+}
+
+.canvas-container {
+  margin: auto;
+  transform-origin: 0px 0px;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAABEklEQVRoQ+2YOwqEQBBEaxBFEQPvfyVTr2AqKOJfVw1lg6LZTpbqaIJxtF8/SzBUVXXCqeI4RpqmKIoCZVk+a68KaoRAq4kQkN5bpBYDTWoxlF57pBYDTWoxlKSWgZLUMkBTajHQpBZDSalloCS1DNCUWgw0qcVQ+tvUquva7XdQFEW49cqyDHmeI0kSA2vuktA0jVsj3CP8Zlfo+96tkeM4sK4rlmXBOI7Ytu03T/3llHDdyK2Rfd8xzzOGYUDXdc/aq8J5ldfh9wSmacI1dbRt+0zFq9QIQ1YTYSi9P4h6RwhqUouA9N6i1GKgSS2GklLLQElqGaAptRhoUouhpNQyUJJaBmhKLQaa1GIo/WtqfQCgny9rZitOmAAAAABJRU5ErkJggg==);
+  background-size: 20px;
+}
+
+
+a {
+  text-decoration: none;
+  color: #0099CC;
+}
+
+figure {
+  margin: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0
+}
+
+.copy {
+  font-size: 62.5%;
+}
+
+.copy p, .copy pre, .copy ul, .copy dl {
+  font-size: 1.6em;
+  line-height: 1.5;
+}
+
+.copy p.intro {
+  font-size: 1.8em;
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+.copy h2 {
+  font-size: 2.5em;
+  font-weight: 300;
+}
+
+.copy pre {
+  font-family: monospace;
+  background: #fafafa;
+  padding: 10px 15px;
+  border: 1px solid #e2e2e2;
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+
+.copy dt {
+  font-weight: bold;
+}
+
+.container {
+  width: 90%;
+  margin: auto;
+}
+
+#header{
+  text-align: left;
+  display: none;
+  button{
+    font-size: 30px;
+    margin-top: 7px;
+  }
+  .title{
+  }
+}
+
+#content {
+  margin: 60px 0 40px;
+}
+
+h1 {
+  font-size: 52px;
+  margin: 0;
+  padding: 0;
+  font-weight: 100;
+  color: #eee;
+}
+
+.hero {
+  font-size: 22px;
+  font-weight: 100;
+  color: #ccc;
+  margin: 0;
+  padding: 0;
+}
+
+.smallScreen .figure-wrapper {
+  margin-top: 80px;
+}
+
+.figure-wrapper {
+  text-align: center;
+}
+
+
+.image-container {
+    display: block;
+    max-width: 100%;
+    margin: auto;
+    overflow: auto;
+    max-height: calc(~'100% -' 60px);
+    position: absolute;
+    margin-top: 55px;
+}
+
+.image-container.target {
+  margin-top: 40px;
+}
+
+.image-container img {
+  max-width: 100%;
+}
+
+.image-container .image-meta {
+  margin-top: 10px;
+  font-size: 12px;
+  text-align: left;
+}
+.image-container .image-meta a {
+  text-decoration: none;
+  color: #444;
+}
+.image-container .image-meta a:hover .image-meta-title {
+  text-decoration: underline;
+}
+
+.inspectorWrapper
+{
+    position: fixed;
+    background: rgba(0,0,0,.7);
+    height: auto;
+    color: white;
+    width: 100%;
+    top: 0px;
+    display: none;
+    min-height: 100%;
+    right: 0px;
+}
+
+.inspector
+{
+  display: none;
+  height: auto;
+  width: 90%;
+  margin-left: 5%;
+  bottom: 0px;
+  min-height: 100px;
+  margin-top: 100px;
+}
+
+.button
+{
+  vertical-align: top;
+}
+
+.icon.fa
+{
+    line-height: 50px;
+    font-size: 30px;
+    color: white;
+}
+
+
+.greenColor
+{
+  color: green;
+}
+
+.redColor
+{
+  color: red;
+}
+
+.blueColor
+{
+  color: blue;
+}
+
+
+.button.button-active .icon{
+   color: skyblue;
+}
+
+.button-success span.icon {
+   color: lightgreen;
+}
+
+.button-danger span.icon {
+   color: red;
+}
+
+.container .toolbar .button-group:first-of-type
+{
+  display: none;
+}
+
+
+.container {
+    position: relative
+}
+
+.image-container {
+    top: 0;
+    left: 0
+}
+
+.toolbar {
+    display: block;
+    position: fixed;
+    top: 0px;
+    text-align: center;
+    float: left;
+    left: 0;
+    background: #444;
+    height: 55px;
+    min-width: 100%;
+    z-index: 99;
+    border-radius: 2px;
+    white-space: nowrap;
+    padding: 0 5px
+}
+
+.toolbar:before {
+    content: "";
+    position: absolute;
+    bottom: -7px;
+    left: 20px;
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 7px solid #444;
+    display: none;
+}
+
+.button-group {
+    display: inline-block;
+    margin: 0;
+    padding: 0
+}
+
+.button-group:last-child {
+    border-right: none
+}
+
+.button {
+    box-sizing: border-box;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 2px 0 0 0;
+    width: 50px;
+    height: 50px
+}
+
+.button:hover {
+    cursor: pointer;
+    background: #555
+}
+
+.button:active {
+    cursor: pointer;
+    background: #333
+}
+
+.button:disabled .icon {
+    color: #666;
+    fill: #666
+}
+
+.button:disabled:hover {
+    cursor: default;
+    background: transparent
+}
+
+.button.button-active .icon {
+    fill: #33b5e5
+}
+
+.button.button-hidden {
+    display: none
+}
+
+.button.button-success .icon {
+    fill: #99cc00
+}
+
+.button.button-warning .icon {
+    fill: #FFBB33
+}
+
+.button.button-danger .icon {
+    fill: #FF4444
+}
+
+.icon {
+    width: 30px;
+    height: 50px;
+    fill: #fff
+}
+
+@media (max-width: 600px) {
+  /*split-screen*/
+  .showInsp{
+    .inspectorWrapper
+    {
+      width: 100%;
+      display: block;
+    }
+  }
+
+}
+
+@media (min-width: 600px) {
+  /*full-screen*/
+  .showInsp{
+    .image-container{
+      max-width: 70%;
+    }
+    .inspectorWrapper
+    {
+      width: 30%;
+      display: block;
+    }
+  }
+}
+
+
+.showInsp{
+  #showInsp .fa:before
+  {
+    content:'\f061';
+  }
+}
+
+button#showInsp {
+ float: right;
+ position: fixed;
+ right: 0px;
+ top: 60px;
+ font-size: 30px;
+}
+
+
+
+#headerTitle
+{
+    color: white;
+    font-size: 20px;
+    display: block;
+    top: 11px;
+    position: absolute;
+    left: 5%;
+    line-height: 30px;
+    width: 90%;
+    text-align: center;
+}

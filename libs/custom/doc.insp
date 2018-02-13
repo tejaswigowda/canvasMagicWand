@@ -1,0 +1,4 @@
+<label for="canvas-width">Canvas width:</label>
+<input type="number" value="300" min="0" max="4096" onchange="updateCanvasDim()" id="canvas-width"><br>
+<label for="canvas-height">Canvas height:</label>
+<input type="number" value="300" min="0" max="4096" onchange="updateCanvasDim()" id="canvas-height"><br>
